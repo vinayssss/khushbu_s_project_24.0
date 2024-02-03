@@ -30,6 +30,22 @@ view: orders {
     sql: ${TABLE}.status ;;
   }
 
+  parameter: number_of_results {
+    type: number
+    allowed_value: {
+      label: "Less than 500"
+      value: "< 500"
+    }
+    allowed_value: {
+      label: "Less than 10,000"
+      value: "< 10000"
+    }
+    allowed_value: {
+      label: "All Results"
+      value: "> 0"
+    }
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -43,18 +59,18 @@ view: orders {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	users.id,
-	users.first_name,
-	users.last_name,
-	billion_orders.count,
-	fakeorders.count,
-	hundred_million_orders.count,
-	hundred_million_orders_wide.count,
-	order_items.count,
-	order_items_vijaya.count,
-	ten_million_orders.count
-	]
+  id,
+  users.id,
+  users.first_name,
+  users.last_name,
+  billion_orders.count,
+  fakeorders.count,
+  hundred_million_orders.count,
+  hundred_million_orders_wide.count,
+  order_items.count,
+  order_items_vijaya.count,
+  ten_million_orders.count
+  ]
   }
 
 }
