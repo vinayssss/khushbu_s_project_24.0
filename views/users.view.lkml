@@ -35,12 +35,22 @@ view: users {
 
   dimension: city {
     type: string
+    group_label: "Users Address"
+    group_item_label: "City Info"
     sql: ${TABLE}.city ;;
+  }
+
+  dimension: state {
+    type: string
+    group_label: "Users Address"
+    group_item_label: " State Info"
+    sql: ${TABLE}.state ;;
   }
 
   dimension: country {
     type: string
-    map_layer_name: countries
+    group_label: "Users Address"
+    group_item_label: "Country Info"
     sql: ${TABLE}.country ;;
   }
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
@@ -72,10 +82,7 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
+
 
   dimension: zip {
     type: zipcode
@@ -89,15 +96,15 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	first_name,
-	last_name,
-	events.count,
-	orders.count,
-	saralooker.count,
-	sindhu.count,
-	user_data.count
-	]
+  id,
+  first_name,
+  last_name,
+  events.count,
+  orders.count,
+  saralooker.count,
+  sindhu.count,
+  user_data.count
+  ]
   }
 
 }
