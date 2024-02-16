@@ -110,6 +110,8 @@ explore: incremental_pdts_test {}
 explore: ints {}
 
 explore: inventory_items {
+  sql_always_where: {% if inventory_items.created_date._in_query %} current_date() {% endif %}
+;;
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
@@ -187,7 +189,10 @@ explore: persons {}
 
 explore: persons2 {}
 
-explore: products {}
+explore: products {
+  #view_name: products
+  #from: orders
+  }
 
 explore: salary {
   join: dept {

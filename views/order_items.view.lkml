@@ -43,8 +43,27 @@ view: order_items {
 
   dimension_group: returned {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter, year,hour]
     sql: ${TABLE}.returned_at ;;
+
+  }
+
+  parameter: dynamic_returned_date_selection {
+    type: string
+    allowed_value: {value: "Created Month"}
+    allowed_value: {value: "Created Date"}
+    allowed_value: {value: "Created Hour"}
+  }
+
+  dimension: dynamic_returned_date_dimension {
+    type: string
+    label_from_parameter: dynamic_returned_date_selection
+    sql:
+    {% if dynamic_returned_date_selection._parameter_value == "'Created Month'" %} ${returned_month}
+    {% elsif dynamic_returned_date_selection._parameter_value == "'Created Hour'" %} ${returned_hour}
+    {% else %} ${returned_date} {% endif %}
+
+      ;;
   }
 
   dimension: sale_price {

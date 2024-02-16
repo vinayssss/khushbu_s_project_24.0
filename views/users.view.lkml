@@ -43,7 +43,7 @@ view: users {
   dimension: state {
     type: string
     group_label: "Users Address"
-    group_item_label: " State Info"
+    group_item_label: "Astate Info"
     sql: ${TABLE}.state ;;
   }
 

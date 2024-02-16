@@ -18,12 +18,31 @@ view: orders {
 
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter, year,hour]
     sql: ${TABLE}.created_at ;;
   }
+
     # Here's what a typical dimension looks like in LookML.
     # A dimension is a groupable field that can be used to filter query results.
     # This dimension will be called "Status" in Explore.
+
+  parameter: dynamic_created_date_selection {
+    type: string
+    allowed_value: {value: "Created Month"}
+    allowed_value: {value: "Created Date"}
+    allowed_value: {value: "Created Hour"}
+  }
+
+  dimension: dynamic_created_date_dimension {
+    type: string
+    label_from_parameter: dynamic_created_date_selection
+    sql:
+    {% if dynamic_created_date_selection._parameter_value == "'Created Month'" %} ${created_month}
+    {% elsif dynamic_created_date_selection._parameter_value == "'Created Hour'" %} ${created_hour}
+    {% else %} ${created_date} {% endif %}
+
+      ;;
+  }
 
   dimension: status {
     type: string

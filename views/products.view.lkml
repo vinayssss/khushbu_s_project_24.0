@@ -20,6 +20,8 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+    suggest_dimension: products.category
+    suggest_explore: fadd_products
   }
 
   dimension: category {
@@ -47,16 +49,29 @@ view: products {
     sql: ${TABLE}.retail_price ;;
   }
 
+measure: test {
+  type: number
+  sql: {% if brand._in_query
+    or category._in_query
+    or department._in_query %}
+  ${average_retail_price}
+  {% else %}
+  ${total_retail_price}
+  {% endif %};;
+}
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_retail_price {
     type: sum
-    sql: ${retail_price} ;;  }
+    sql: ${retail_price} ;;
+    }
+
   measure: average_retail_price {
     type: average
-    sql: ${retail_price} ;;  }
+    sql: ${retail_price} ;;
+    value_format:"0%"}
 
   dimension: sku {
     type: string
