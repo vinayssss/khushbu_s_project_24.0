@@ -35,6 +35,11 @@ explore: billion_orders {
   }
 }
 
+access_grant: test {
+  user_attribute: company_id
+  allowed_values: ["90600"]
+}
+
 # To create more sophisticated Explores that involve multiple views, you can use the join parameter.
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
